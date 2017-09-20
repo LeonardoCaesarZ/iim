@@ -1,0 +1,37 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
+			"path": "github.com/garyburd/redigo/internal",
+			"revision": "70e1b1943d4fc9c56791abaa6f4d1e727b9ab925",
+			"revisionTime": "2017-09-14T05:10:19Z"
+		},
+		{
+			"checksumSHA1": "zxm1ahSCAclqI4JIvyuRbytF2pA=",
+			"path": "github.com/garyburd/redigo/redis",
+			"revision": "70e1b1943d4fc9c56791abaa6f4d1e727b9ab925",
+			"revisionTime": "2017-09-14T05:10:19Z"
+		},
+		{
+			"checksumSHA1": "Yi7+P8UCCOlHzzpWEN0U2nlGvz0=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "8fefef06da7707b5a3cda42195a6b409c9c9ab5c",
+			"revisionTime": "2017-06-16T13:16:31Z"
+		},
+		{
+			"checksumSHA1": "SEZulQ/Gm4f6P6/c3waZjXxvl0g=",
+			"path": "github.com/jmoiron/sqlx",
+			"revision": "d9bd385d68c068f1fabb5057e3dedcbcbb039d0f",
+			"revisionTime": "2017-04-30T19:46:03Z"
+		},
+		{
+			"checksumSHA1": "xXjxKqs3ECyWO5zjIVb2qgj9rcU=",
+			"path": "github.com/jmoiron/sqlx/reflectx",
+			"revision": "d9bd385d68c068f1fabb5057e3dedcbcbb039d0f",
+			"revisionTime": "2017-04-30T19:46:03Z"
+		}
+	],
+	"rootPath": "iim"
+}
