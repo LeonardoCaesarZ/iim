@@ -1,117 +1,21 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"iim/model"
-	"io/ioutil"
-	"net/http"
-	"reflect"
+	"iim/auth/api"
+	"iim/crypto"
+	"iim/db"
+	"iim/frame/http"
+	"iim/session"
 )
 
-type Person struct {
-	Name string
-	age  int
-}
-
-func tmp(dest interface{}) {
-	if reflect.TypeOf(dest).Kind() == reflect.Slice {
-		// value := reflect.ValueOf(dest)
-		ele := reflect.TypeOf(dest).Elem()
-		for i := 0; i < ele.NumField(); i++ {
-			fmt.Println(ele.Field(i).Type)
-		}
-		// for i := 0; i < value.Len(); i++ {
-		// 	fmt.Println(value.Index(i))
-		// }
-	} else {
-		fmt.Println("not slice")
-	}
-}
-
 func main() {
-	xs := []Person{}
-	// xs = append(xs, Person{"abc", 123})
-	// xs = append(xs, Person{"bcd", 234})
-	tmp(xs)
+	crypto.Init()  // 加解密模块初始化，加载私钥
+	session.Init() // 会话模块初始化，伪随机数种子初始化
+	db.Init()      // 数据库模块初始化，导入参数，测试连接
 
-	// http.HandleFunc("/auth", authentication)
-	// err := http.ListenAndServe(":9999", nil)
-	// if err != nil {
-	// 	log.Fatal("ListenAndServe: ", err)
-	// }
-	// fmt.Println("auth server is stopped!")
-
-	// r := sql.NewRedis("localhost", "6379")
-
-	// err := r.Set("a", 123)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// reply, err := r.GetInt("a")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Println(reply)
-
-	// key := auth.GenerateAESKey()
-	// fmt.Println("aes key: ", string(key))
-
-	// encrypted, err := auth.AESEncrypt([]byte("asdfasdfasdfasdfasdf"), key)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Println("ctypted text: ", string(encrypted), len(encrypted))
-
-	// decrypted, err := auth.AESDecrypt(encrypted, key)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Println(string(decrypted))
-
-	// auth.GenerateRSAKeyPair(1024)
-	// if err := auth.Init(); err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// data := []byte("qwodasdfw")
-	// a, err := auth.RSAEncrypt(data)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(string(a), len(a))
-
-	// b, err := auth.RSADecrypt(a)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Println(string(b), len(b))
-}
-
-func authentication(w http.ResponseWriter, r *http.Request) {
-	// api layer
-
-	r.ParseForm()
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		// log it and return
-	}
-
-	data := &model.AuthRequest{}
-	err = json.Unmarshal(body, data)
-	if err != nil {
-		// log it and return
-	}
-
-	if data.Account == "" || data.Passwd == "" || data.AesKey == "" {
-		// wrong params, return 403
-	}
-
-	// bll layer
-
+	server := http.NewServer()
+	server.Base("/auth/")              // 设定Get、Post的基础路径，Down不生效
+	server.Post("login", api.Login)    // 登录接口
+	server.Down("/", "./data/public/") // 开放静态资源下载
+	server.Serve(9999)                 // 绑定端口并开始服务
 }

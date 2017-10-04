@@ -7,11 +7,13 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
+// Redis 包含连接Redis必备的参数，后续开发连接池
 type Redis struct {
 	Host string
 	Port string
 }
 
+// NewRedis 获得结构体
 func NewRedis(host string, port string) *Redis {
 	return &Redis{host, port}
 }
