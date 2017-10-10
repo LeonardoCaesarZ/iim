@@ -34,7 +34,7 @@ def login(key):
     r = requests.post(url, data=data)
     return r.status_code, r.content
 
-def exitIfNot200(code):
+def checkErr(code):
     if code != 200:
         print '[FAIL]'
         exit()
@@ -46,7 +46,7 @@ def deAes(key, data):
     return plain_text.rstrip('\0')
 
 code, text = get_public_pem()
-exitIfNot200(code)
+checkErr(code)
 
 code, text = login(RSA.importKey(text))
 print code, len(text)

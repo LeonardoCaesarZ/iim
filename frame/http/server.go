@@ -7,6 +7,9 @@ import (
 	"strconv"
 )
 
+// todo
+// 1. 优雅退出
+
 // Server 框架核心
 type Server struct {
 	base       string              // 所有注册URL的前部增加部分，减少重复填写
